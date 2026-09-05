@@ -19,7 +19,11 @@ Procédure :
 1. Relis les huit fichiers de `docs/chantiers/` : statut, prochaine action, blocage.
 2. Régénère `dashboard/mes-agents.html` à partir de ces fichiers. Rien en dur : ce qui
    s'affiche vient des fichiers.
-3. Republie sur le **même chemin de fichier**, sans passer `favicon`.
+3. Republie sur le **même chemin de fichier**, sans passer `favicon`, avec
+   `capabilities: {db: {}, sample: {}}` — la page enregistre ce que Noah y dit et permet de
+   parler aux agents. Omettre `capabilities` conserve la déclaration ; ne jamais passer `{}`.
+4. Les questions marquées répondues dans `ouvert.md` disparaissent de la liste `QUESTIONS`
+   de la page ; les consignes traitées ne s'affichent plus.
 
 Direction artistique : `docs/direction-artistique.md`. Elle est **négociable** — mais le terre
 cuite `#b4694c` reste réservé aux blocages, et le test Palais / maillot de bain s'applique.

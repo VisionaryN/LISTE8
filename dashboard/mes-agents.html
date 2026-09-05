@@ -4,81 +4,113 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap">
 <style>
 /* Direction artistique VN.8 — monde blanc, un seul thème, peint explicitement. */
-:root{
-  --encre:#111111; --gris:#777777; --pale:#c4c4c4; --filet:#e5e5e5; --tres-pale:#f5f5f5;
-  --fond:#ffffff; --alerte:#b4694c;
-}
+:root{--encre:#111111;--gris:#777777;--pale:#c4c4c4;--filet:#e5e5e5;--tres-pale:#f5f5f5;--fond:#ffffff;--alerte:#b4694c}
 *{box-sizing:border-box}
 html{color-scheme:light}
-body{
-  margin:0; background:var(--fond); color:var(--encre);
-  font-family:"Poppins",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight:300; font-size:15px; line-height:1.65;
-  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-}
-.page{max-width:720px; margin:0 auto; padding:56px 22px 80px}
-h1,h2,h3{font-weight:200; margin:0; text-wrap:balance; letter-spacing:.01em}
-h1{font-size:38px; line-height:1.1}
-h2{font-size:12px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--gris)}
-a{color:inherit; text-decoration:none; border-bottom:.5px solid var(--pale)}
-a:hover,a:focus-visible{border-bottom-color:var(--encre)}
-a:focus-visible{outline:none}
-.sig{font-size:30px; font-weight:200; line-height:1; color:var(--encre); display:block; margin-bottom:18px}
-.sous{color:var(--gris); margin:8px 0 0; max-width:52ch}
-.meta{font-size:12.5px; color:var(--gris); margin-top:22px; font-weight:400; letter-spacing:.02em}
+body{margin:0;background:var(--fond);color:var(--encre);font-family:"Poppins",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;font-weight:300;font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.page{max-width:720px;margin:0 auto;padding:56px 22px 80px}
+h1,h2,h3{font-weight:200;margin:0;text-wrap:balance;letter-spacing:.01em}
+h1{font-size:38px;line-height:1.1}
+h2{font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+button,input,textarea{font-family:inherit;font-size:inherit;color:inherit}
+.sig{font-size:30px;font-weight:200;line-height:1;display:block;margin-bottom:18px}
+.sous{color:var(--gris);margin:8px 0 0;max-width:52ch}
+.meta{font-size:12.5px;color:var(--gris);margin-top:22px;font-weight:400;letter-spacing:.02em}
+.principe{margin-top:26px;padding:16px 0;border-top:.5px solid var(--filet);border-bottom:.5px solid var(--filet);font-size:14px;color:var(--gris)}
+.principe b{font-weight:400;color:var(--encre)}
 
-.compte{display:flex; gap:34px; margin:44px 0 0; padding:26px 0; border-top:.5px solid var(--filet); border-bottom:.5px solid var(--filet); flex-wrap:wrap}
-.c{display:flex; flex-direction:column; gap:2px}
-.c b{font-weight:200; font-size:36px; line-height:1; font-variant-numeric:tabular-nums}
-.c span{font-size:11px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--gris)}
+.compte{display:flex;gap:34px;margin:30px 0 0;padding:6px 0 26px;border-bottom:.5px solid var(--filet);flex-wrap:wrap}
+.c{display:flex;flex-direction:column;gap:2px}
+.c b{font-weight:200;font-size:36px;line-height:1;font-variant-numeric:tabular-nums}
+.c span{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
 .c.alerte b{color:var(--alerte)}
 
 section{margin-top:60px}
 section h2{margin-bottom:6px}
-
-.liste{list-style:none; margin:0; padding:0}
-.agent{padding:22px 0; border-bottom:.5px solid var(--filet); display:grid; grid-template-columns:1fr; gap:6px}
+.liste{list-style:none;margin:0;padding:0}
+.agent{padding:22px 0;border-bottom:.5px solid var(--filet)}
 .agent:last-child{border-bottom:0}
-.ligne{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
-.nom{font-weight:400; font-size:15px; letter-spacing:.01em}
-.nom code{font-family:inherit; font-weight:400}
-.statut{font-size:11px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--gris); margin-left:auto; white-space:nowrap}
+.ouvrir{all:unset;display:block;width:100%;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ouvrir:focus-visible{outline:.5px solid var(--encre);outline-offset:8px}
+.ligne{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.nom{font-weight:400;font-size:15px}
+.statut{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-left:auto;white-space:nowrap}
 .statut.bloque{color:var(--alerte)}
-.chantier{font-size:17px; font-weight:200; line-height:1.4; color:var(--encre)}
-.action{color:var(--gris); font-size:14px; margin:2px 0 0}
-.action em{font-style:normal; font-weight:400; color:var(--encre)}
-.bloc{font-size:14px; color:var(--alerte); margin:2px 0 0; padding-left:14px; border-left:.5px solid var(--alerte)}
+.chantier{font-size:17px;font-weight:200;line-height:1.4;margin-top:4px}
+.action{color:var(--gris);font-size:14px;margin:6px 0 0}
+.action em{font-style:normal;font-weight:400;color:var(--encre)}
+.bloc{font-size:14px;color:var(--alerte);margin:6px 0 0;padding-left:14px;border-left:.5px solid var(--alerte)}
+.parler{display:inline-block;margin-top:10px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);border-bottom:.5px solid var(--pale);padding-bottom:1px}
+.ouvrir:hover .parler{color:var(--encre);border-bottom-color:var(--encre)}
 
-.blocages{list-style:none; margin:0; padding:0}
-.blocages li{padding:14px 0 14px 16px; border-left:.5px solid var(--alerte); margin-top:12px; font-size:14.5px}
-.blocages li b{font-weight:400; display:block; color:var(--alerte); font-size:11px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:3px}
-.blocages li i{font-style:normal; color:var(--gris); font-size:13px; display:block; margin-top:3px}
+/* saisie en ligne — encre sur blanc, filet */
+.ligne-saisie{display:flex;gap:0;margin-top:12px;border-bottom:.5px solid var(--pale)}
+.ligne-saisie input{flex:1;min-width:0;border:0;background:transparent;padding:8px 0;font-weight:300;font-size:14px;outline:none}
+.ligne-saisie input::placeholder{color:var(--pale)}
+.ligne-saisie button{all:unset;cursor:pointer;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);padding:8px 0 8px 14px;white-space:nowrap}
+.ligne-saisie button:hover,.ligne-saisie button:focus-visible{color:var(--encre);outline:none}
+.ligne-saisie button:disabled{color:var(--pale);cursor:default}
+.ligne-saisie:focus-within{border-bottom-color:var(--encre)}
 
-.questions{list-style:none; margin:0; padding:0; counter-reset:q}
-.questions li{padding:12px 0; border-bottom:.5px solid var(--filet); display:grid; grid-template-columns:44px 1fr; gap:10px; font-size:14.5px}
+.dit{list-style:none;margin:0;padding:0}
+.dit li{padding:12px 0;border-bottom:.5px solid var(--filet);font-size:14px;display:grid;grid-template-columns:1fr;gap:2px}
+.dit li:last-child{border-bottom:0}
+.dit li b{font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.vide{color:var(--pale);font-size:14px;padding:12px 0}
+
+.blocages{list-style:none;margin:0;padding:0}
+.blocages li{padding:14px 0 14px 16px;border-left:.5px solid var(--alerte);margin-top:12px;font-size:14.5px}
+.blocages li b{font-weight:400;display:block;color:var(--alerte);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px}
+.blocages li i{font-style:normal;color:var(--gris);font-size:13px;display:block;margin-top:3px}
+
+.questions{list-style:none;margin:0;padding:0}
+.questions li{padding:14px 0;border-bottom:.5px solid var(--filet);display:grid;grid-template-columns:44px 1fr;gap:10px;font-size:14.5px}
 .questions li:last-child{border-bottom:0}
-.questions li span{font-size:11px; font-weight:500; letter-spacing:.1em; color:var(--gris); padding-top:4px; font-variant-numeric:tabular-nums}
-.questions li i{font-style:normal; color:var(--gris); font-size:13px; display:block}
-.questions li.bloquant span{color:var(--alerte)}
+.questions li>span{font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--gris);padding-top:4px}
+.questions li i{font-style:normal;color:var(--gris);font-size:13px;display:block}
+.questions li.bloquant>span{color:var(--alerte)}
+.questions li.repondu{color:var(--gris)}
+.questions li.repondu>span{color:var(--pale)}
+.reponse{margin-top:6px;font-size:14px;color:var(--encre);font-weight:400}
+.reponse small{display:block;font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-bottom:1px}
 
-.outils{display:grid; grid-template-columns:1fr; gap:0; margin:0; padding:0; list-style:none}
-.outils li{display:flex; gap:12px; align-items:baseline; padding:9px 0; border-bottom:.5px solid var(--filet); font-size:13.5px; color:var(--gris)}
+.outils{margin:0;padding:0;list-style:none}
+.outils li{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-bottom:.5px solid var(--filet);font-size:13.5px;color:var(--gris)}
 .outils li:last-child{border-bottom:0}
-.outils li b{font-weight:400; color:var(--encre); min-width:132px}
-
-.lancer{background:var(--tres-pale); padding:22px 24px; margin-top:12px}
-.lancer p{margin:0 0 6px; color:var(--gris); font-size:13.5px}
+.outils li b{font-weight:400;color:var(--encre);min-width:132px}
+.lancer{background:var(--tres-pale);padding:22px 24px;margin-top:12px}
+.lancer p{margin:0 0 6px;color:var(--gris);font-size:13.5px}
 .lancer p:last-child{margin:0}
-.lancer code{font-family:"Poppins",sans-serif; font-weight:400; color:var(--encre); font-size:15px}
+.lancer code{font-family:"Poppins",sans-serif;font-weight:400;color:var(--encre);font-size:15px}
+footer{margin-top:70px;padding-top:22px;border-top:.5px solid var(--filet);font-size:12.5px;color:var(--gris);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+footer .inf{font-size:18px;font-weight:200;color:var(--encre)}
 
-footer{margin-top:70px; padding-top:22px; border-top:.5px solid var(--filet); font-size:12.5px; color:var(--gris); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px}
-footer .inf{font-size:18px; font-weight:200; color:var(--encre)}
+/* ---- panneau de conversation ---- */
+.panneau{position:fixed;inset:0;background:var(--fond);z-index:10;display:flex;flex-direction:column}
+.p-tete{display:flex;align-items:baseline;gap:12px;padding:20px 22px 14px;border-bottom:.5px solid var(--filet);flex-shrink:0}
+.p-tete .nom{font-size:15px}
+.p-tete .chantier{font-size:14px;margin:0;color:var(--gris);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fermer{all:unset;cursor:pointer;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);padding:4px 0;margin-left:auto}
+.fermer:hover,.fermer:focus-visible{color:var(--encre);outline:none}
+.p-corps{flex:1;overflow-y:auto;padding:12px 22px;-webkit-overflow-scrolling:touch}
+.msg{padding:12px 0;border-bottom:.5px solid var(--filet);font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg:last-child{border-bottom:0}
+.msg.moi{color:var(--gris)}
+.msg.moi::before{content:"toi";display:block;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--pale);margin-bottom:2px}
+.msg.agent::before{content:attr(data-nom);display:block;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-bottom:2px}
+.msg.note{font-size:13px;color:var(--gris);border-left:.5px solid var(--pale);padding-left:12px;border-bottom:0}
+.msg.note b{font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.p-pied{flex-shrink:0;padding:10px 22px calc(14px + env(safe-area-inset-bottom));border-top:.5px solid var(--filet)}
+.p-pied .ligne-saisie{margin-top:0;border-bottom-color:var(--encre)}
+.p-pied textarea{flex:1;min-width:0;border:0;background:transparent;padding:8px 0;resize:none;outline:none;line-height:1.5;max-height:120px;font-weight:300}
+.p-pied textarea::placeholder{color:var(--pale)}
+.p-note{font-size:12px;color:var(--gris);margin:8px 0 0;min-height:1.4em}
+.p-note.err{color:var(--alerte)}
 
 @media (min-width:640px){
   .page{padding:80px 32px 100px}
   h1{font-size:46px}
-  .agent{grid-template-columns:1fr; gap:5px}
-  .outils{grid-template-columns:1fr 1fr; column-gap:36px}
+  .panneau{inset:auto 0 0 auto;width:min(560px,100vw);height:min(720px,100vh);border-left:.5px solid var(--filet);border-top:.5px solid var(--filet)}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -87,8 +119,9 @@ footer .inf{font-size:18px; font-weight:200; color:var(--encre)}
   <header>
     <span class="sig" aria-hidden="true">∞</span>
     <h1>Mes Agents</h1>
-    <p class="sous">Huit agents, un par chantier. Chacun reprend là où il s'est arrêté, avance d'un pas, et écrit son état.</p>
+    <p class="sous">Huit agents, un par chantier. Touche un agent pour lui parler. Réponds aux questions ici, elles ne te seront plus posées.</p>
     <p class="meta" id="meta"></p>
+    <p class="principe"><b>Parler, c'est maintenant.</b> Agir — chercher, écrire, publier — c'est au prochain tour : le matin, ou <b>/tour</b> à la main.</p>
   </header>
 
   <div class="compte" id="compte"></div>
@@ -99,13 +132,19 @@ footer .inf{font-size:18px; font-weight:200; color:var(--encre)}
   </section>
 
   <section>
+    <h2>Ce que tu as dit</h2>
+    <p class="sous" style="margin-bottom:6px">Retenu. Repris au prochain tour.</p>
+    <ul class="dit" id="dit"><li class="vide">Chargement…</li></ul>
+  </section>
+
+  <section>
     <h2>Ce qui bloque</h2>
     <ul class="blocages" id="blocages"></ul>
   </section>
 
   <section>
     <h2>Questions ouvertes</h2>
-    <p class="sous" style="margin-bottom:14px">Chacune se pose une fois. La réponse s'écrit, et plus personne ne la repose.</p>
+    <p class="sous" style="margin-bottom:10px">Chacune se pose une fois. Réponds ici, ou dis-le à l'agent.</p>
     <ul class="questions" id="questions"></ul>
   </section>
 
@@ -118,9 +157,8 @@ footer .inf{font-size:18px; font-weight:200; color:var(--encre)}
   <section>
     <h2>Lancer</h2>
     <div class="lancer">
-      <p><code>claude</code> dans le dépôt, puis <code>/tour</code> — les huit avancent d'un pas.</p>
-      <p><code>/tour entreprise-prod</code> — un seul.</p>
-      <p>Chaque matin, un tour se fait sans vous. Le résultat arrive sur le téléphone.</p>
+      <p><code>claude</code> dans le dépôt, puis <code>/tour</code> — les huit avancent d'un pas, en reprenant ce que tu as dit ici.</p>
+      <p>Chaque matin, un tour se fait sans toi. Le résultat arrive sur le téléphone.</p>
     </div>
   </section>
 
@@ -130,40 +168,62 @@ footer .inf{font-size:18px; font-weight:200; color:var(--encre)}
   </footer>
 </div>
 
+<div class="panneau" id="panneau" hidden role="dialog" aria-modal="true" aria-labelledby="p-nom">
+  <div class="p-tete">
+    <span class="nom" id="p-nom"></span>
+    <span class="chantier" id="p-chantier"></span>
+    <button class="fermer" id="p-fermer" type="button">Fermer</button>
+  </div>
+  <div class="p-corps" id="p-corps"></div>
+  <div class="p-pied">
+    <form id="p-form" class="ligne-saisie">
+      <textarea id="p-txt" rows="1" placeholder="Dis-lui…" aria-label="Message"></textarea>
+      <button type="submit" id="p-envoyer">Envoyer</button>
+      <button type="button" id="p-stop" hidden>Stop</button>
+    </form>
+    <p class="p-note" id="p-note"></p>
+  </div>
+</div>
+
 <script>
 const TOUR = "2026-09-05";
 
 const AGENTS = [
   { id:"ajm-renaissance", chantier:"La Renaissance — relance de l'AJM", statut:"en cours",
     action:"Fixer la date de l'événement des 40 ans — elle commande tout le rétroplanning.",
-    bloc:"La date des 40 ans, et le budget qui décide de l'ordre réel des priorités." },
+    bloc:"La date des 40 ans, et le budget qui décide de l'ordre réel des priorités.",
+    fiche:"Tu portes La Renaissance : la relance de l'AJM, Association des Jeunes de Monaco, fondée en 1986 sous Haut Patronage princier. Noah n'en est PAS encore président — il l'envisage. AJM et Arts Digitaux sont deux associations distinctes. Tension centrale : dire l'exigence sans dire l'exclusion (2012 a voulu sortir de l'image « club select »). Comité à sept rôles ; le poste d'employé se discute seul à seul avant le comité. Cinq pôles : sport (le Challenge Prince Albert II existe, ouvert aux associations), culture (les 16-30 ans sont le public qui manque aux institutions), événementiel (modèle Vieilles Charrues : don proportionnel à l'engagement de chaque association), communication (ne pas supprimer l'Instagram : archiver et relancer), R&D (seul croisement avec les Arts Digitaux). Modèles : AIESEC et Duke of Edinburgh — on grandit en donnant à d'autres le droit d'agir, pas en programmant plus d'événements. Loi 1.355 : la fédération existe ; le mot « fondation » est protégé. Quarante ans en 2026, check-up mars 2027." },
   { id:"arts-digitaux", chantier:"Arts Digitaux — Digital Art Week 2027", statut:"en cours",
-    action:"Arrêter la liste des huit univers, sans laisser l'impression 3D prendre plus qu'une section.",
-    bloc:"" },
+    action:"Arrêter la liste des huit univers, sans laisser l'impression 3D prendre plus qu'une section.", bloc:"",
+    fiche:"Tu portes l'Association Monégasque des Arts Digitaux, fondée par Noah début 2024 — il la préside — et la Monte Carlo Digital Art Week du 28 au 30 mai 2027 : 20 à 24 événements, huit univers. L'impression 3D n'est PAS le fil rouge, c'est une section parmi huit. Le pont crypto est interne au bureau. Repères du champ : Ars Electronica, ZKM. Arts Digitaux et AJM sont distinctes ; si un sujet relève de l'AJM, dis-le." },
   { id:"identite-vn8", chantier:"Identité VN.8", statut:"en cours",
-    action:"Écrire la charte au format qui se montre — une page, pas un document.",
-    bloc:"" },
+    action:"Écrire la charte au format qui se montre — une page, pas un document.", bloc:"",
+    fiche:"Tu es le gardien de l'identité VN.8 — Visionary Noah. Signature ∞ ; le 8 est l'infini à la verticale ; la pomme croquée. Manifeste : capter le réel, fabriquer l'irréel, le ramener dans le réel — la boucle est un 8. La charte (Poppins 200/300, blanc noir gris, terre cuite réservé aux blocages, filets fins, aucun aplat) est négociable : Noah l'a dit. Ce qui ne bouge pas : tenir sur une invitation au Palais ET sur un maillot de bain. Pour s'écarter de la charte, on montre les deux versions côte à côte. Un visuel fourni par Noah se reprend tel quel, jamais redessiné — c'est déjà arrivé avec son logo." },
   { id:"studio-web", chantier:"ajm.studio", statut:"en cours",
     action:"Reproduire les trois bugs mobile avant d'en corriger un seul.",
-    bloc:"Le nom du label partenaire du studio." },
+    bloc:"Le nom du label partenaire du studio.",
+    fiche:"Tu t'occupes de ajm.studio : en ligne, avec de vraies réservations (Supabase, Resend, Vercel). Trois bugs mobile non confirmés résolus : emails de confirmation, chiffres de date en bleu (probablement la détection de dates iOS), pop-up fantôme. Reproduire avant de corriger. Toute livraison est vérifiée en mobile avant d'être annoncée. Le studio (29 m²) a un label partenaire dont le nom est inconnu : ne pas l'inventer." },
   { id:"rnd-volumetrique", chantier:"R&D volumétrique, Plateforme Volumetric", statut:"en cours",
-    action:"Vérifier les sources de l'axe compression — aucune n'a encore été lue.",
-    bloc:"" },
+    action:"Vérifier les sources de l'axe compression — aucune n'a encore été lue.", bloc:"",
+    fiche:"Tu accompagnes la R&D en capture et projection volumétriques : une base de veille en six axes (capture, représentation, compression, projection, audio spatial, production), 23 entrées, six pistes ouvertes. Aucune affirmation technique de mémoire sur ce domaine : recherche, ou silence explicite. Trois faits structurants : le splatting gaussien s'impose ; l'affichage à champ lumineux quitte le laboratoire ; Evercoast a racheté Depthkit. Second chantier : la Plateforme Volumetric — « le visiteur n'entre pas dans un site, il entre dans un volume » — bloquée par un périmètre trop large (écran, VR, AR, hologramme) : à réduire à une seule cible." },
   { id:"fabrication-3d", chantier:"Fabrication 3D", statut:"en attente",
     action:"Lancer un test d'exposition pour calibrer la Tough Ultra.",
-    bloc:"Calibration non faite : chaque impression est un pari tant qu'elle manque." },
+    bloc:"Calibration non faite : chaque impression est un pari tant qu'elle manque.",
+    fiche:"Tu t'occupes de l'impression résine : ELEGOO Saturn 4 Ultra 16K, chaîne STL vers .goo opérationnelle, calibration Tough Ultra en attente (par test d'exposition, pas à l'estime). Sa machine n'a que ~19 Go de disque libres — vérifier la place avant de proposer quoi que ce soit. Les 35 sculptures S² existent physiquement, jamais creusées. Pour la Digital Art Week, l'impression 3D est une section parmi huit, pas le fil rouge." },
   { id:"entreprise-prod", chantier:"Entreprise de production", statut:"bloqué",
     action:"Poser la question du secteur — seule, pas noyée dans d'autres.",
-    bloc:"Le secteur. Il est connu mais jamais nommé. Ni statut ni tarifs avant la réponse." },
+    bloc:"Le secteur. Il est connu mais jamais nommé. Ni statut ni tarifs avant la réponse.",
+    fiche:"Tu t'occupes de l'entreprise de production de Noah — le rêve de toujours. Le secteur, il le sait mais ne l'a jamais nommé : NE PAS LE DEVINER, ni « audiovisuel », ni « art digital ». C'est la question Q-01. Si elle n'a pas de réponse, pose-la, une fois, seule — et quand il répond, appelle repondre_question avec id Q-01. Deux décisions bloquées derrière : le statut juridique, et facturer au projet (on vend un résultat) ou à la journée (on vend du temps). Sans le secteur : ni statut, ni tarifs. Parcours : GoPro 2013-2016, Noah Films 2018-2021, puis la 3D. Une personne, Monaco." },
   { id:"mise-en-ligne", chantier:"Mise en ligne", statut:"bloqué",
     action:"Mettre le portfolio ∞ / VN.8 en ligne et rendre le lien.",
-    bloc:"Le portfolio est fini et validé, jamais publié. Réclamé depuis le 20 août." }
+    bloc:"Le portfolio est fini et validé, jamais publié. Réclamé depuis le 20 août.",
+    fiche:"Ton seul travail : transformer un travail fini en un lien que Noah peut ouvrir et envoyer. Le portfolio ∞ / VN.8 est fini, validé, et jamais mis en ligne — réclamé depuis le 20 août. Il vit sur la machine de Noah, pas dans le dépôt : il faut le publier de là, avec lui. Tu n'as pas terminé tant que le lien n'est pas rendu, et vérifié sur son téléphone. Aussi en file : l'export ChatGPT (l'outil est prêt, l'export manque)." }
 ];
 
 const BLOCAGES = [
-  { agent:"mise-en-ligne", t:"Le portfolio ∞ / VN.8 n'est toujours pas en ligne", d:"Fini, validé, réclamé depuis le 20 août. Il vit sur la machine de Noah, pas dans le dépôt : il faut le publier de là." },
-  { agent:"entreprise-prod", t:"Le secteur de l'entreprise n'a jamais été nommé", d:"Une seule question à poser. Tout le reste du chantier attend derrière." },
-  { agent:"fabrication-3d", t:"La Tough Ultra n'est pas calibrée", d:"Levable sans Noah : un test d'exposition." },
+  { agent:"mise-en-ligne", t:"Le portfolio ∞ / VN.8 n'est toujours pas en ligne", d:"Fini, validé, réclamé depuis le 20 août. Il vit sur ta machine : il faut le publier de là." },
+  { agent:"entreprise-prod", t:"Le secteur de l'entreprise n'a jamais été nommé", d:"Une seule question. Tout le reste du chantier attend derrière." },
+  { agent:"fabrication-3d", t:"La Tough Ultra n'est pas calibrée", d:"Levable sans toi : un test d'exposition." },
   { agent:"fabrication-3d", t:"~19 Go de disque libres", d:"Bloque déjà Unreal Engine. Contraint tout choix d'outil." }
 ];
 
@@ -172,23 +232,26 @@ const QUESTIONS = [
   { n:"Q-02", t:"La date de l'événement des 40 ans", d:"Commande le rétroplanning.", bloquant:true },
   { n:"Q-03", t:"« La Renaissance » — nom public ou interne ?", d:"Change tout pour la communication." },
   { n:"Q-04", t:"Le nom du label partenaire du studio", d:"" },
-  { n:"Q-05", t:"Les modalités du Challenge Prince Albert II", d:"Levable sans Noah : écrire à l'organisateur." },
+  { n:"Q-05", t:"Les modalités du Challenge Prince Albert II", d:"Levable sans toi : écrire à l'organisateur." },
   { n:"Q-06", t:"Le budget", d:"Décide de l'ordre réel des priorités.", bloquant:true },
   { n:"Q-07", t:"L'export ChatGPT", d:"L'outil est prêt, l'export manque." }
 ];
 
-const OUTILS = [
-  ["explorateur","cherche dans le code, en lecture seule"],
-  ["relecteur","relit un diff avant commit"],
-  ["testeur","écrit et lance les tests"],
-  ["gardien-donnees","veille sur 8LISTE.json"],
-  ["redacteur-doc","tient la documentation à jour"]
-];
+const OUTILS = [["explorateur","cherche dans le code, en lecture seule"],["relecteur","relit un diff avant commit"],["testeur","écrit et lance les tests"],["gardien-donnees","veille sur 8LISTE.json"],["redacteur-doc","tient la documentation à jour"]];
+
+const REGLES = `Tu es un agent de Noah, tu lui parles sur son téléphone. Tutoie-le.
+Court, aéré, le résultat d'abord. Il n'est pas développeur. Montrer, pas expliquer. Une seule question à la fois. Quand il dit « simple », coupe court.
+Tu ne peux rien exécuter d'ici — ni chercher sur le web, ni écrire dans le dépôt. Ce que tu notes avec noter_consigne sera fait au prochain tour (le matin, ou /tour). Dis-le simplement si on te demande d'agir.
+Quand Noah donne une instruction ou une décision, appelle noter_consigne — sans lui demander confirmation, puis dis en une ligne que c'est noté.
+Quand Noah répond à une question ouverte (Q-01 à Q-07), appelle repondre_question avec l'identifiant.
+Ne redemande jamais ce qui est dans ta fiche ou dans les réponses déjà données. Aucune affirmation de mémoire sur des faits externes : dis que tu vérifieras au prochain tour.`;
 
 const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e;};
+const nomAgent = id => (AGENTS.find(a=>a.id===id)||{}).chantier || id;
+const dateCourte = iso => (iso||"").slice(0,10);
 
+/* ---------- rendu statique ---------- */
 document.getElementById("meta").textContent = "Dernier tour · " + TOUR;
-
 const n = s => AGENTS.filter(a=>a.statut===s).length;
 const compte = document.getElementById("compte");
 [["Agents",AGENTS.length,""],["En cours",n("en cours"),""],["En attente",n("en attente"),""],["Bloqués",n("bloqué"),"alerte"]]
@@ -197,26 +260,167 @@ const compte = document.getElementById("compte");
 const ul = document.getElementById("agents");
 AGENTS.forEach(a=>{
   const li=el("li","agent");
+  const btn=el("button","ouvrir"); btn.type="button"; btn.dataset.agent=a.id;
   const ligne=el("div","ligne");
-  const nom=el("span","nom"); nom.append(el("code",null,a.id));
-  ligne.append(nom, el("span","statut"+(a.statut==="bloqué"?" bloque":""), a.statut));
-  li.append(ligne, el("div","chantier",a.chantier));
-  const act=el("p","action"); act.append(el("em",null,"Prochain pas  "), document.createTextNode(a.action));
-  li.append(act);
-  if(a.bloc) li.append(el("p","bloc",a.bloc));
+  ligne.append(el("span","nom",a.id), el("span","statut"+(a.statut==="bloqué"?" bloque":""),a.statut));
+  btn.append(ligne, el("div","chantier",a.chantier));
+  const act=el("p","action"); act.append(el("em",null,"Prochain pas  "),document.createTextNode(a.action)); btn.append(act);
+  if(a.bloc) btn.append(el("p","bloc",a.bloc));
+  const parler=el("span","parler","Lui parler"); parler.dataset.parler="1"; btn.append(parler);
+  li.append(btn);
+  const f=el("form","ligne-saisie"); f.dataset.agent=a.id; f.dataset.kind="consigne";
+  const inp=el("input"); inp.type="text"; inp.placeholder="Dis-lui quelque chose…"; inp.setAttribute("aria-label","Consigne pour "+a.id);
+  const b=el("button",null,"Noter"); b.type="submit";
+  f.append(inp,b); li.append(f);
   ul.append(li);
 });
 
-const bl = document.getElementById("blocages");
+const bl=document.getElementById("blocages");
 BLOCAGES.forEach(b=>{const li=el("li");li.append(el("b",null,b.agent),document.createTextNode(b.t),el("i",null,b.d));bl.append(li);});
 
-const q = document.getElementById("questions");
+const q=document.getElementById("questions");
 QUESTIONS.forEach(x=>{
-  const li=el("li"+"", x.bloquant?"bloquant":"");
+  const li=el("li",x.bloquant?"bloquant":""); li.id="q-"+x.n;
   const body=el("div"); body.append(document.createTextNode(x.t)); if(x.d) body.append(el("i",null,x.d));
+  const f=el("form","ligne-saisie"); f.dataset.kind="reponse"; f.dataset.q=x.n; f.dataset.titre=x.t;
+  const inp=el("input"); inp.type="text"; inp.placeholder="Ta réponse…"; inp.setAttribute("aria-label","Réponse à "+x.n);
+  const b=el("button",null,"Répondre"); b.type="submit";
+  f.append(inp,b); body.append(f);
   li.append(el("span",null,x.n), body); q.append(li);
 });
 
-const o = document.getElementById("outils");
+const o=document.getElementById("outils");
 OUTILS.forEach(([nom,role])=>{const li=el("li");li.append(el("b",null,nom),document.createTextNode(role));o.append(li);});
+
+/* ---------- persistance (db) ---------- */
+let db=null;
+const reponses=new Map();   // Q-id -> {reponse,date}
+const consignes=new Map();  // docId -> {agent,texte,date,traite}
+
+function rendreDit(){
+  const box=document.getElementById("dit"); box.replaceChildren();
+  const items=[];
+  consignes.forEach((c,id)=>{ if(!c.traite) items.push({date:c.date, lab:c.agent, txt:c.texte}); });
+  reponses.forEach((r,qid)=>{ if(!r.traite) items.push({date:r.date, lab:qid, txt:r.reponse}); });
+  items.sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  if(!items.length){ box.append(el("li","vide", db ? "Rien pour l'instant." : "Saisie indisponible dans cette vue.")); return; }
+  items.forEach(i=>{const li=el("li"); li.append(el("b",null,i.lab+" · "+dateCourte(i.date)), document.createTextNode(i.txt)); box.append(li);});
+}
+function rendreReponses(){
+  QUESTIONS.forEach(x=>{
+    const li=document.getElementById("q-"+x.n); const r=reponses.get(x.n);
+    const f=li.querySelector("form"); let rep=li.querySelector(".reponse");
+    if(r){ li.classList.add("repondu"); f.hidden=true;
+      if(!rep){ rep=el("div","reponse"); li.children[1].append(rep); }
+      rep.replaceChildren(el("small",null,"Répondu · "+dateCourte(r.date)), document.createTextNode(r.reponse));
+    } else { li.classList.remove("repondu"); f.hidden=false; if(rep) rep.remove(); }
+  });
+}
+async function noterConsigne(agent, texte, source){
+  if(!db) throw {code:"unavailable"};
+  await db.collection("consignes").add({agent, texte, date:new Date().toISOString(), source, traite:false});
+}
+async function repondre(qid, reponse, source){
+  if(!db) throw {code:"unavailable"};
+  const qq=QUESTIONS.find(x=>x.n===qid); if(!qq) throw new Error("question inconnue : "+qid);
+  await db.doc("reponses/"+qid).set({question:qq.t, reponse, date:new Date().toISOString(), source, traite:false});
+}
+
+document.addEventListener("submit", async e=>{
+  const f=e.target; if(!f.dataset.kind) return;
+  e.preventDefault();
+  const inp=f.querySelector("input"); const btn=f.querySelector("button");
+  const v=inp.value.trim(); if(!v) return;
+  btn.disabled=true;
+  try{
+    if(f.dataset.kind==="consigne") await noterConsigne(f.dataset.agent, v, "page");
+    else await repondre(f.dataset.q, v, "page");
+    inp.value="";
+  }catch(err){ inp.placeholder = err.code==="quota_exceeded" ? "Base pleine — il faut un tour d'abord." : "Pas enregistré. Réessaie."; }
+  finally{ btn.disabled=false; }
+});
+
+/* ---------- conversation (sample) ---------- */
+let sample=null, courant=null, ctl=null;
+const historiques=new Map(); // agent -> turns
+const P={ panneau:document.getElementById("panneau"), nom:document.getElementById("p-nom"), chantier:document.getElementById("p-chantier"),
+  corps:document.getElementById("p-corps"), form:document.getElementById("p-form"), txt:document.getElementById("p-txt"),
+  envoyer:document.getElementById("p-envoyer"), stop:document.getElementById("p-stop"), note:document.getElementById("p-note"), fermer:document.getElementById("p-fermer") };
+
+function amorce(a){
+  const etat=`ÉTAT DU CHANTIER — statut : ${a.statut}. Prochain pas : ${a.action}${a.bloc?" Blocage : "+a.bloc:""}`;
+  const rep=[...reponses.entries()].map(([k,v])=>`${k} : ${v.reponse}`).join("\n");
+  const cons=[...consignes.values()].filter(c=>c.agent===a.id && !c.traite).map(c=>"- "+c.texte).join("\n");
+  return `${REGLES}\n\nTA FICHE — ${a.id} :\n${a.fiche}\n\n${etat}\n\nRÉPONSES DÉJÀ DONNÉES :\n${rep||"(aucune)"}\n\nCONSIGNES EN ATTENTE POUR TOI :\n${cons||"(aucune)"}\n\nQUESTIONS OUVERTES :\n${QUESTIONS.filter(x=>!reponses.has(x.n)).map(x=>x.n+" — "+x.t).join("\n")||"(aucune)"}`;
+}
+function bulle(cls, txt, nom){ const m=el("div","msg "+cls, txt); if(nom) m.dataset.nom=nom; P.corps.append(m); P.corps.scrollTop=P.corps.scrollHeight; return m; }
+function noteConv(txt){ const m=el("div","msg note"); m.append(el("b",null,"noté  "), document.createTextNode(txt)); P.corps.append(m); P.corps.scrollTop=P.corps.scrollHeight; }
+
+function ouvrir(id){
+  courant=AGENTS.find(a=>a.id===id); if(!courant) return;
+  P.nom.textContent=courant.id; P.chantier.textContent=courant.chantier;
+  P.corps.replaceChildren();
+  const h=historiques.get(id)||[];
+  if(!h.length) bulle("agent", "Je reprends là où j'en suis : "+courant.action+(courant.bloc?"\n\nCe qui me bloque : "+courant.bloc:""), courant.id);
+  h.forEach(t=>bulle(t.role==="user"?"moi":"agent", t.content, courant.id));
+  P.note.textContent=""; P.note.classList.remove("err");
+  P.panneau.hidden=false; document.body.style.overflow="hidden"; P.txt.focus();
+}
+function fermer(){ if(ctl) ctl.abort(); P.panneau.hidden=true; document.body.style.overflow=""; }
+P.fermer.addEventListener("click", fermer);
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !P.panneau.hidden) fermer(); });
+P.stop.addEventListener("click", ()=>{ if(ctl) ctl.abort(); });
+P.txt.addEventListener("input", ()=>{ P.txt.style.height="auto"; P.txt.style.height=Math.min(P.txt.scrollHeight,120)+"px"; });
+P.txt.addEventListener("keydown", e=>{ if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); P.form.requestSubmit(); } });
+
+const OUTILS_PAGE = [
+  { name:"noter_consigne", description:"Enregistre une consigne, décision ou instruction de Noah pour le prochain tour de cet agent. Retourne « noté ». À appeler dès qu'il donne une instruction, sans demander confirmation.",
+    inputSchema:{type:"object",properties:{texte:{type:"string",description:"La consigne, reformulée en une phrase claire, à l'impératif."}},required:["texte"]},
+    async execute(input){ const t=String(input.texte||"").trim(); if(!t) throw new Error("consigne vide"); await noterConsigne(courant.id, t, "conversation"); noteConv(t); return "noté"; } },
+  { name:"repondre_question", description:"Enregistre la réponse de Noah à une question ouverte (identifiant Q-01 à Q-07). Retourne « noté ». La question ne sera plus posée.",
+    inputSchema:{type:"object",properties:{id:{type:"string",description:"Q-01 … Q-07"},reponse:{type:"string",description:"La réponse, telle qu'il l'a donnée."}},required:["id","reponse"]},
+    async execute(input){ const id=String(input.id||"").trim().toUpperCase(); const r=String(input.reponse||"").trim(); if(!r) throw new Error("réponse vide"); await repondre(id, r, "conversation"); noteConv(id+" — "+r); return "noté"; } }
+];
+const COPIE = { not_granted:"Conversation non autorisée dans cette vue.", rate_limited:"Trop de messages d'un coup. Attends un peu.", unavailable:"Indisponible pour l'instant. Réessaie.", tools_unavailable:"Cette vue ne permet pas de noter. Utilise la ligne sous l'agent." };
+
+P.form.addEventListener("submit", async e=>{
+  e.preventDefault();
+  if(!sample || !courant) return;
+  const v=P.txt.value.trim(); if(!v) return;
+  P.txt.value=""; P.txt.style.height="auto";
+  const h=historiques.get(courant.id)||[]; h.push({role:"user",content:v}); historiques.set(courant.id,h);
+  bulle("moi", v);
+  const out=bulle("agent","…",courant.id);
+  ctl=new AbortController(); P.envoyer.hidden=true; P.stop.hidden=false; P.note.textContent=""; P.note.classList.remove("err");
+  try{
+    const {text,truncated}=await sample([{role:"user",content:amorce(courant)},...h], { cache:false, signal:ctl.signal, tools:OUTILS_PAGE, onText:({text})=>{ out.textContent=text; P.corps.scrollTop=P.corps.scrollHeight; } });
+    h.push({role:"assistant",content:text});
+    if(truncated) P.note.textContent="Coupé — demande moins d'un coup.";
+  }catch(err){
+    out.textContent = err.text || out.textContent.replace(/^…$/,"");
+    if(err.code!=="cancelled"){ P.note.textContent=COPIE[err.code]||"Ça n'a pas marché ("+(err.code||"inconnu")+")."; P.note.classList.add("err"); }
+    if(err.code==="not_granted"){ sample=null; document.querySelectorAll("[data-parler]").forEach(x=>x.hidden=true); }
+    if(out.textContent.trim()) h.push({role:"assistant",content:out.textContent}); else out.remove();
+  }finally{ ctl=null; P.envoyer.hidden=false; P.stop.hidden=true; }
+});
+
+document.getElementById("agents").addEventListener("click", e=>{
+  const b=e.target.closest(".ouvrir"); if(!b || !sample) return; ouvrir(b.dataset.agent);
+});
+
+/* ---------- démarrage des capacités ---------- */
+(async ()=>{
+  const use = name => (typeof claude!=="undefined" && claude.use) ? claude.use(name) : Promise.resolve(null);
+  const [d,s] = await Promise.all([use("db"), use("sample")]);
+  db=d; sample=s;
+  if(!db){ document.querySelectorAll("form.ligne-saisie[data-kind]").forEach(f=>f.hidden=true); }
+  else{
+    db.collection("reponses").onSnapshot(snap=>{ reponses.clear(); snap.docs.forEach(x=>reponses.set(x.id,x.data()||{})); rendreReponses(); rendreDit(); },
+      err=>{ document.getElementById("dit").replaceChildren(el("li","vide","Les réponses ne se chargent pas ("+err.code+")")); });
+    db.collection("consignes").orderBy("date","desc").limit(60).onSnapshot(snap=>{ consignes.clear(); snap.docs.forEach(x=>consignes.set(x.id,x.data()||{})); rendreDit(); },
+      err=>{ document.getElementById("dit").replaceChildren(el("li","vide","Les consignes ne se chargent pas ("+err.code+")")); });
+  }
+  if(!sample){ document.querySelectorAll("[data-parler]").forEach(x=>x.hidden=true); document.querySelectorAll(".ouvrir").forEach(b=>{ b.style.cursor="default"; }); }
+  rendreDit();
+})();
 </script>

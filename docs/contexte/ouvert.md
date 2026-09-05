@@ -6,6 +6,10 @@ autour, ou on la pose **une seule fois**, au bon moment.
 
 Tout agent consulte ce fichier **avant** de demander quoi que ce soit à Noah.
 
+Les réponses arrivent aussi **par la page Mes Agents** : Noah y répond directement, ou le dit
+à un agent en conversation. L'étape zéro de `/tour` les reprend ici. Une réponse donnée sur la
+page et pas encore reprise est déjà une réponse — ne pas reposer la question entre-temps.
+
 Dernière révision : 2026-09-05.
 
 ---

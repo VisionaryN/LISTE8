@@ -70,6 +70,9 @@ y réécrit son état en fin de tour.
 Un agent par chantier, et du travail en continu.
 
 - Vision d'ensemble : https://claude.ai/code/artifact/1a69e5fc-7256-4307-bc97-a5915733d729
+  Interactive : Noah y répond aux questions ouvertes, laisse des consignes, et parle à chaque
+  agent. Tout est enregistré (`db`, collections `reponses` et `consignes`) et repris par
+  l'étape zéro de `/tour`. Parler, c'est immédiat ; agir, c'est au tour.
 - Mémoire partagée : `docs/contexte/` — `handoff.md` (la source), `ouvert.md` (les questions
   sans réponse : chacune se pose **une fois**), `lexique.md` (sigles et déformations de dictée).
 - État des chantiers : `docs/chantiers/` — un fichier par agent, plus `journal-des-tours.md`.
