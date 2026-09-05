@@ -1,0 +1,222 @@
+<title>Mes Agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap">
+<style>
+/* Direction artistique VN.8 — monde blanc, un seul thème, peint explicitement. */
+:root{
+  --encre:#111111; --gris:#777777; --pale:#c4c4c4; --filet:#e5e5e5; --tres-pale:#f5f5f5;
+  --fond:#ffffff; --alerte:#b4694c;
+}
+*{box-sizing:border-box}
+html{color-scheme:light}
+body{
+  margin:0; background:var(--fond); color:var(--encre);
+  font-family:"Poppins",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight:300; font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+.page{max-width:720px; margin:0 auto; padding:56px 22px 80px}
+h1,h2,h3{font-weight:200; margin:0; text-wrap:balance; letter-spacing:.01em}
+h1{font-size:38px; line-height:1.1}
+h2{font-size:12px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--gris)}
+a{color:inherit; text-decoration:none; border-bottom:.5px solid var(--pale)}
+a:hover,a:focus-visible{border-bottom-color:var(--encre)}
+a:focus-visible{outline:none}
+.sig{font-size:30px; font-weight:200; line-height:1; color:var(--encre); display:block; margin-bottom:18px}
+.sous{color:var(--gris); margin:8px 0 0; max-width:52ch}
+.meta{font-size:12.5px; color:var(--gris); margin-top:22px; font-weight:400; letter-spacing:.02em}
+
+.compte{display:flex; gap:34px; margin:44px 0 0; padding:26px 0; border-top:.5px solid var(--filet); border-bottom:.5px solid var(--filet); flex-wrap:wrap}
+.c{display:flex; flex-direction:column; gap:2px}
+.c b{font-weight:200; font-size:36px; line-height:1; font-variant-numeric:tabular-nums}
+.c span{font-size:11px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--gris)}
+.c.alerte b{color:var(--alerte)}
+
+section{margin-top:60px}
+section h2{margin-bottom:6px}
+
+.liste{list-style:none; margin:0; padding:0}
+.agent{padding:22px 0; border-bottom:.5px solid var(--filet); display:grid; grid-template-columns:1fr; gap:6px}
+.agent:last-child{border-bottom:0}
+.ligne{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
+.nom{font-weight:400; font-size:15px; letter-spacing:.01em}
+.nom code{font-family:inherit; font-weight:400}
+.statut{font-size:11px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--gris); margin-left:auto; white-space:nowrap}
+.statut.bloque{color:var(--alerte)}
+.chantier{font-size:17px; font-weight:200; line-height:1.4; color:var(--encre)}
+.action{color:var(--gris); font-size:14px; margin:2px 0 0}
+.action em{font-style:normal; font-weight:400; color:var(--encre)}
+.bloc{font-size:14px; color:var(--alerte); margin:2px 0 0; padding-left:14px; border-left:.5px solid var(--alerte)}
+
+.blocages{list-style:none; margin:0; padding:0}
+.blocages li{padding:14px 0 14px 16px; border-left:.5px solid var(--alerte); margin-top:12px; font-size:14.5px}
+.blocages li b{font-weight:400; display:block; color:var(--alerte); font-size:11px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:3px}
+.blocages li i{font-style:normal; color:var(--gris); font-size:13px; display:block; margin-top:3px}
+
+.questions{list-style:none; margin:0; padding:0; counter-reset:q}
+.questions li{padding:12px 0; border-bottom:.5px solid var(--filet); display:grid; grid-template-columns:44px 1fr; gap:10px; font-size:14.5px}
+.questions li:last-child{border-bottom:0}
+.questions li span{font-size:11px; font-weight:500; letter-spacing:.1em; color:var(--gris); padding-top:4px; font-variant-numeric:tabular-nums}
+.questions li i{font-style:normal; color:var(--gris); font-size:13px; display:block}
+.questions li.bloquant span{color:var(--alerte)}
+
+.outils{display:grid; grid-template-columns:1fr; gap:0; margin:0; padding:0; list-style:none}
+.outils li{display:flex; gap:12px; align-items:baseline; padding:9px 0; border-bottom:.5px solid var(--filet); font-size:13.5px; color:var(--gris)}
+.outils li:last-child{border-bottom:0}
+.outils li b{font-weight:400; color:var(--encre); min-width:132px}
+
+.lancer{background:var(--tres-pale); padding:22px 24px; margin-top:12px}
+.lancer p{margin:0 0 6px; color:var(--gris); font-size:13.5px}
+.lancer p:last-child{margin:0}
+.lancer code{font-family:"Poppins",sans-serif; font-weight:400; color:var(--encre); font-size:15px}
+
+footer{margin-top:70px; padding-top:22px; border-top:.5px solid var(--filet); font-size:12.5px; color:var(--gris); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px}
+footer .inf{font-size:18px; font-weight:200; color:var(--encre)}
+
+@media (min-width:640px){
+  .page{padding:80px 32px 100px}
+  h1{font-size:46px}
+  .agent{grid-template-columns:1fr; gap:5px}
+  .outils{grid-template-columns:1fr 1fr; column-gap:36px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="page">
+  <header>
+    <span class="sig" aria-hidden="true">∞</span>
+    <h1>Mes Agents</h1>
+    <p class="sous">Huit agents, un par chantier. Chacun reprend là où il s'est arrêté, avance d'un pas, et écrit son état.</p>
+    <p class="meta" id="meta"></p>
+  </header>
+
+  <div class="compte" id="compte"></div>
+
+  <section>
+    <h2>Chantiers</h2>
+    <ul class="liste" id="agents"></ul>
+  </section>
+
+  <section>
+    <h2>Ce qui bloque</h2>
+    <ul class="blocages" id="blocages"></ul>
+  </section>
+
+  <section>
+    <h2>Questions ouvertes</h2>
+    <p class="sous" style="margin-bottom:14px">Chacune se pose une fois. La réponse s'écrit, et plus personne ne la repose.</p>
+    <ul class="questions" id="questions"></ul>
+  </section>
+
+  <section>
+    <h2>Outillage</h2>
+    <p class="sous" style="margin-bottom:10px">Cinq agents qui servent le code, pas les chantiers.</p>
+    <ul class="outils" id="outils"></ul>
+  </section>
+
+  <section>
+    <h2>Lancer</h2>
+    <div class="lancer">
+      <p><code>claude</code> dans le dépôt, puis <code>/tour</code> — les huit avancent d'un pas.</p>
+      <p><code>/tour entreprise-prod</code> — un seul.</p>
+      <p>Chaque matin, un tour se fait sans vous. Le résultat arrive sur le téléphone.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>Source : <em>docs/chantiers/</em> — dépôt LISTE8</span>
+    <span class="inf">VN.8</span>
+  </footer>
+</div>
+
+<script>
+const TOUR = "2026-09-05";
+
+const AGENTS = [
+  { id:"ajm-renaissance", chantier:"La Renaissance — relance de l'AJM", statut:"en cours",
+    action:"Fixer la date de l'événement des 40 ans — elle commande tout le rétroplanning.",
+    bloc:"La date des 40 ans, et le budget qui décide de l'ordre réel des priorités." },
+  { id:"arts-digitaux", chantier:"Arts Digitaux — Digital Art Week 2027", statut:"en cours",
+    action:"Arrêter la liste des huit univers, sans laisser l'impression 3D prendre plus qu'une section.",
+    bloc:"" },
+  { id:"identite-vn8", chantier:"Identité VN.8", statut:"en cours",
+    action:"Écrire la charte au format qui se montre — une page, pas un document.",
+    bloc:"" },
+  { id:"studio-web", chantier:"ajm.studio", statut:"en cours",
+    action:"Reproduire les trois bugs mobile avant d'en corriger un seul.",
+    bloc:"Le nom du label partenaire du studio." },
+  { id:"rnd-volumetrique", chantier:"R&D volumétrique, Plateforme Volumetric", statut:"en cours",
+    action:"Vérifier les sources de l'axe compression — aucune n'a encore été lue.",
+    bloc:"" },
+  { id:"fabrication-3d", chantier:"Fabrication 3D", statut:"en attente",
+    action:"Lancer un test d'exposition pour calibrer la Tough Ultra.",
+    bloc:"Calibration non faite : chaque impression est un pari tant qu'elle manque." },
+  { id:"entreprise-prod", chantier:"Entreprise de production", statut:"bloqué",
+    action:"Poser la question du secteur — seule, pas noyée dans d'autres.",
+    bloc:"Le secteur. Il est connu mais jamais nommé. Ni statut ni tarifs avant la réponse." },
+  { id:"mise-en-ligne", chantier:"Mise en ligne", statut:"bloqué",
+    action:"Mettre le portfolio ∞ / VN.8 en ligne et rendre le lien.",
+    bloc:"Le portfolio est fini et validé, jamais publié. Réclamé depuis le 20 août." }
+];
+
+const BLOCAGES = [
+  { agent:"mise-en-ligne", t:"Le portfolio ∞ / VN.8 n'est toujours pas en ligne", d:"Fini, validé, réclamé depuis le 20 août. Il vit sur la machine de Noah, pas dans le dépôt : il faut le publier de là." },
+  { agent:"entreprise-prod", t:"Le secteur de l'entreprise n'a jamais été nommé", d:"Une seule question à poser. Tout le reste du chantier attend derrière." },
+  { agent:"fabrication-3d", t:"La Tough Ultra n'est pas calibrée", d:"Levable sans Noah : un test d'exposition." },
+  { agent:"fabrication-3d", t:"~19 Go de disque libres", d:"Bloque déjà Unreal Engine. Contraint tout choix d'outil." }
+];
+
+const QUESTIONS = [
+  { n:"Q-01", t:"Le secteur de l'entreprise de production", d:"Ne pas deviner.", bloquant:true },
+  { n:"Q-02", t:"La date de l'événement des 40 ans", d:"Commande le rétroplanning.", bloquant:true },
+  { n:"Q-03", t:"« La Renaissance » — nom public ou interne ?", d:"Change tout pour la communication." },
+  { n:"Q-04", t:"Le nom du label partenaire du studio", d:"" },
+  { n:"Q-05", t:"Les modalités du Challenge Prince Albert II", d:"Levable sans Noah : écrire à l'organisateur." },
+  { n:"Q-06", t:"Le budget", d:"Décide de l'ordre réel des priorités.", bloquant:true },
+  { n:"Q-07", t:"L'export ChatGPT", d:"L'outil est prêt, l'export manque." }
+];
+
+const OUTILS = [
+  ["explorateur","cherche dans le code, en lecture seule"],
+  ["relecteur","relit un diff avant commit"],
+  ["testeur","écrit et lance les tests"],
+  ["gardien-donnees","veille sur 8LISTE.json"],
+  ["redacteur-doc","tient la documentation à jour"]
+];
+
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e;};
+
+document.getElementById("meta").textContent = "Dernier tour · " + TOUR;
+
+const n = s => AGENTS.filter(a=>a.statut===s).length;
+const compte = document.getElementById("compte");
+[["Agents",AGENTS.length,""],["En cours",n("en cours"),""],["En attente",n("en attente"),""],["Bloqués",n("bloqué"),"alerte"]]
+  .forEach(([l,v,c])=>{const d=el("div","c"+(c?" "+c:""));d.append(el("b",null,String(v)),el("span",null,l));compte.append(d);});
+
+const ul = document.getElementById("agents");
+AGENTS.forEach(a=>{
+  const li=el("li","agent");
+  const ligne=el("div","ligne");
+  const nom=el("span","nom"); nom.append(el("code",null,a.id));
+  ligne.append(nom, el("span","statut"+(a.statut==="bloqué"?" bloque":""), a.statut));
+  li.append(ligne, el("div","chantier",a.chantier));
+  const act=el("p","action"); act.append(el("em",null,"Prochain pas  "), document.createTextNode(a.action));
+  li.append(act);
+  if(a.bloc) li.append(el("p","bloc",a.bloc));
+  ul.append(li);
+});
+
+const bl = document.getElementById("blocages");
+BLOCAGES.forEach(b=>{const li=el("li");li.append(el("b",null,b.agent),document.createTextNode(b.t),el("i",null,b.d));bl.append(li);});
+
+const q = document.getElementById("questions");
+QUESTIONS.forEach(x=>{
+  const li=el("li"+"", x.bloquant?"bloquant":"");
+  const body=el("div"); body.append(document.createTextNode(x.t)); if(x.d) body.append(el("i",null,x.d));
+  li.append(el("span",null,x.n), body); q.append(li);
+});
+
+const o = document.getElementById("outils");
+OUTILS.forEach(([nom,role])=>{const li=el("li");li.append(el("b",null,nom),document.createTextNode(role));o.append(li);});
+</script>
