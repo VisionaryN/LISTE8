@@ -1,0 +1,6 @@
+# Réglages Claude Code locaux (non partagés)
+.claude/settings.local.json
+
+# Divers
+.DS_Store
+*.log
