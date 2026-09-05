@@ -1,0 +1,509 @@
+<title>Atelier Volumétrique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#EDEFF1; --surface:#FFFFFF; --surface-2:#F5F7F8;
+  --ink:#141A1F; --ink-2:#3D4952; --muted:#5C6873;
+  --line:#D6DCE0; --line-soft:#E5EAED;
+  --accent:#175E7A; --accent-soft:#E2EDF2;
+  --lvl-a:#0F7355; --lvl-b:#9A6207; --lvl-c:#6B7A85;
+  --lvl-a-bg:#E1F0EA; --lvl-b-bg:#F7EDDA; --lvl-c-bg:#E9EDEF;
+  --ax1:#3B3A8C; --ax2:#1F5F98; --ax3:#1B7C86; --ax4:#2F7D4F; --ax5:#8A5A9B; --ax6:#8A6520;
+  --shadow:0 1px 2px rgba(20,26,31,.06),0 4px 14px rgba(20,26,31,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1317; --surface:#161D23; --surface-2:#1B242B;
+    --ink:#E4EAEF; --ink-2:#C2CDD5; --muted:#93A1AC;
+    --line:#2A353D; --line-soft:#212B32;
+    --accent:#5FB6D4; --accent-soft:#16303B;
+    --lvl-a:#3FBE95; --lvl-b:#D6A03C; --lvl-c:#8B9AA6;
+    --lvl-a-bg:#12302A; --lvl-b-bg:#33280F; --lvl-c-bg:#222C33;
+    --ax1:#8683D8; --ax2:#5CA3DC; --ax3:#4FC0C9; --ax4:#63BEA8; --ax5:#C193D2; --ax6:#D2A860;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1317; --surface:#161D23; --surface-2:#1B242B;
+  --ink:#E4EAEF; --ink-2:#C2CDD5; --muted:#93A1AC;
+  --line:#2A353D; --line-soft:#212B32;
+  --accent:#5FB6D4; --accent-soft:#16303B;
+  --lvl-a:#3FBE95; --lvl-b:#D6A03C; --lvl-c:#8B9AA6;
+  --lvl-a-bg:#12302A; --lvl-b-bg:#33280F; --lvl-c-bg:#222C33;
+  --ax1:#8683D8; --ax2:#5CA3DC; --ax3:#4FC0C9; --ax4:#63BEA8; --ax5:#C193D2; --ax6:#D2A860;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.55; margin:0;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1400px; margin:0 auto; padding:28px 24px 64px}
+h1,h2,h3{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif; text-wrap:balance; margin:0}
+code,.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* ---- en-tête ---- */
+.head{display:flex; flex-wrap:wrap; gap:20px 32px; align-items:flex-end; justify-content:space-between; padding-bottom:20px; border-bottom:1px solid var(--line)}
+h1{font-size:34px; font-weight:700; letter-spacing:-.015em; line-height:1.1}
+.sub{color:var(--muted); font-size:14px; margin-top:5px; max-width:62ch}
+.stats{display:flex; gap:26px; flex-wrap:wrap}
+.stat{display:flex; flex-direction:column; gap:1px}
+.stat b{font-family:"IBM Plex Sans Condensed",sans-serif; font-size:27px; font-weight:600; line-height:1; font-variant-numeric:tabular-nums}
+.stat span{font-size:10.5px; text-transform:uppercase; letter-spacing:.09em; color:var(--muted); font-weight:500}
+.stat.a b{color:var(--lvl-a)} .stat.b b{color:var(--lvl-b)} .stat.c b{color:var(--lvl-c)}
+
+.alert{margin:20px 0 0; padding:12px 15px; border-left:3px solid var(--lvl-b); background:var(--lvl-b-bg); border-radius:0 5px 5px 0; font-size:13.5px; color:var(--ink-2)}
+.alert b{color:var(--ink)}
+
+/* ---- grille ---- */
+.cols{display:grid; grid-template-columns:minmax(0,1.85fr) minmax(0,1fr); gap:34px; margin-top:26px; align-items:start}
+@media (max-width:1040px){ .cols{grid-template-columns:1fr; gap:26px} .side{position:static !important} }
+
+/* ---- axes ---- */
+.axis{background:var(--surface); border:1px solid var(--line-soft); border-radius:7px; margin-bottom:14px; overflow:hidden; box-shadow:var(--shadow)}
+.axis-h{display:flex; align-items:baseline; gap:11px; padding:13px 17px 12px 15px; border-left:4px solid var(--ax); border-bottom:1px solid var(--line-soft)}
+.axis-n{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ax); font-weight:500; padding-top:2px}
+.axis-h h2{font-size:19px; font-weight:600; letter-spacing:-.008em; flex:1; min-width:0}
+.axis-tag{font-size:10.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); font-weight:500; white-space:nowrap}
+.entries{padding:4px 17px 15px 19px}
+.entry{padding:11px 0; border-bottom:1px dashed var(--line-soft)}
+.entry:last-child{border-bottom:0; padding-bottom:2px}
+.entry p{margin:0; font-size:14px; color:var(--ink-2)}
+.entry p b{color:var(--ink); font-weight:600}
+.srcs{margin:6px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:2px}
+.srcs a{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--accent); text-decoration:none; word-break:break-all; border-bottom:1px solid transparent}
+.srcs a:hover,.srcs a:focus-visible{border-bottom-color:var(--accent)}
+.empty{color:var(--muted); font-style:italic; font-size:13.5px; padding:11px 0}
+
+/* ---- pastille de confiance ---- */
+.lvl{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:500; padding:1px 5px; border-radius:3px; margin-right:7px; vertical-align:1px}
+.lvl-A{color:var(--lvl-a); background:var(--lvl-a-bg)}
+.lvl-B{color:var(--lvl-b); background:var(--lvl-b-bg)}
+.lvl-C{color:var(--lvl-c); background:var(--lvl-c-bg)}
+
+/* ---- colonne latérale ---- */
+.side{position:sticky; top:18px; display:flex; flex-direction:column; gap:14px}
+.panel{background:var(--surface); border:1px solid var(--line-soft); border-radius:7px; box-shadow:var(--shadow)}
+.panel-h{padding:12px 15px; border-bottom:1px solid var(--line-soft); display:flex; align-items:baseline; justify-content:space-between; gap:10px}
+.panel-h h3{font-size:12px; text-transform:uppercase; letter-spacing:.09em; font-weight:600; color:var(--ink)}
+.panel-h .count{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums}
+.panel-b{padding:13px 15px}
+
+/* ---- saisie ---- */
+.seg{display:flex; gap:0; border:1px solid var(--line); border-radius:5px; overflow:hidden; margin-bottom:9px}
+.seg label{flex:1; text-align:center; font-size:12.5px; padding:6px 4px; cursor:pointer; color:var(--muted); background:var(--surface-2); font-weight:500}
+.seg label:first-child{border-right:1px solid var(--line)}
+.seg input{position:absolute; opacity:0; pointer-events:none}
+.seg input:checked + span{color:var(--surface)}
+.seg label:has(input:checked){background:var(--accent); color:var(--surface)}
+.seg label:has(input:focus-visible){outline:2px solid var(--accent); outline-offset:-2px}
+:root[data-theme="dark"] .seg label:has(input:checked){color:#0E1317}
+textarea,select{
+  width:100%; font-family:inherit; font-size:13.5px; color:var(--ink);
+  background:var(--surface-2); border:1px solid var(--line); border-radius:5px;
+  padding:8px 9px; resize:vertical;
+}
+textarea{min-height:74px; line-height:1.45}
+select{margin-top:8px; height:34px}
+textarea:focus,select:focus{outline:2px solid var(--accent); outline-offset:-1px; border-color:var(--accent)}
+button{
+  margin-top:9px; width:100%; font-family:"IBM Plex Sans Condensed",sans-serif;
+  font-size:14px; font-weight:600; letter-spacing:.01em;
+  color:var(--surface); background:var(--accent); border:0; border-radius:5px;
+  padding:9px; cursor:pointer;
+}
+:root[data-theme="dark"] button{color:#0E1317}
+button:hover{filter:brightness(1.08)}
+button:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+button:disabled{opacity:.5; cursor:default; filter:none}
+.note{font-size:12px; color:var(--muted); margin:8px 0 0; line-height:1.45}
+.note.err{color:var(--lvl-b)}
+
+/* ---- listes latérales ---- */
+.item{padding:9px 0; border-bottom:1px dashed var(--line-soft)}
+.item:first-child{padding-top:0} .item:last-child{border-bottom:0; padding-bottom:0}
+.item-h{display:flex; gap:7px; align-items:baseline; margin-bottom:1px}
+.item-id{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted); flex-shrink:0}
+.item-t{font-size:13.5px; font-weight:600; color:var(--ink); line-height:1.35}
+.item p{margin:2px 0 0; font-size:12.5px; color:var(--muted); line-height:1.45}
+.pending{border-left:3px solid var(--lvl-b); padding-left:9px; margin-left:-1px}
+.pending .item-t{font-weight:500}
+.jour{font-size:13px; color:var(--ink-2); line-height:1.5}
+.jour-d{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--muted); display:block; margin-bottom:3px}
+.jour ul{margin:5px 0 0; padding-left:17px} .jour li{margin-bottom:3px}
+
+/* ---- glossaire ---- */
+details{margin-top:14px; background:var(--surface); border:1px solid var(--line-soft); border-radius:7px; box-shadow:var(--shadow)}
+summary{padding:12px 15px; cursor:pointer; font-family:"IBM Plex Sans Condensed",sans-serif; font-size:12px; text-transform:uppercase; letter-spacing:.09em; font-weight:600}
+summary:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+.gloss{padding:2px 15px 15px; display:grid; grid-template-columns:repeat(auto-fill,minmax(255px,1fr)); gap:12px 22px}
+.gterm{font-size:13.5px}
+.gterm dt{font-weight:600; color:var(--ink)}
+.gterm dt em{font-style:normal; font-weight:400; color:var(--muted); font-size:12.5px}
+.gterm dd{margin:1px 0 0; color:var(--ink-2); font-size:12.5px; line-height:1.45}
+dl{margin:0}
+footer{margin-top:26px; padding-top:15px; border-top:1px solid var(--line); font-size:12px; color:var(--muted); display:flex; flex-wrap:wrap; gap:6px 18px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="head">
+    <div>
+      <h1>Atelier Volumétrique</h1>
+      <p class="sub">Base de veille sur la capture et la projection volumétriques. Six axes, entrées sourcées, pistes ouvertes. Maintenue depuis le terminal par l'agent <code>rnd-volumetrique</code>.</p>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="alert" id="alert"></div>
+
+  <div class="cols">
+    <main id="axes"></main>
+    <aside class="side">
+      <section class="panel">
+        <div class="panel-h"><h3>Capturer</h3></div>
+        <div class="panel-b">
+          <form id="cap">
+            <div class="seg">
+              <label><input type="radio" name="kind" value="piste" checked><span>Piste</span></label>
+              <label><input type="radio" name="kind" value="note"><span>Note</span></label>
+            </div>
+            <textarea id="txt" placeholder="Ce qu'il ne faut pas oublier…" aria-label="Contenu de la capture"></textarea>
+            <select id="axe" aria-label="Axe concerné"></select>
+            <button type="submit" id="send">Enregistrer</button>
+            <p class="note" id="capnote">Enregistré ici, repris dans le dépôt au prochain <code>/tableau</code>.</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-h"><h3>En attente de curation</h3><span class="count" id="pendc">—</span></div>
+        <div class="panel-b" id="pend"><p class="empty">Chargement…</p></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-h"><h3>Pistes ouvertes</h3><span class="count" id="pc"></span></div>
+        <div class="panel-b" id="pistes"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-h"><h3>Journal</h3></div>
+        <div class="panel-b" id="journal"></div>
+      </section>
+    </aside>
+  </div>
+
+  <details>
+    <summary>Glossaire</summary>
+    <dl class="gloss" id="gloss"></dl>
+  </details>
+
+  <footer>
+    <span>Source : <code>docs/rnd-volumetrique/</code> — dépôt LISTE8</span>
+    <span><code>[A]</code> vérifié · <code>[B]</code> sourcé, page non ouverte · <code>[C]</code> piste non recoupée</span>
+  </footer>
+</div>
+
+<script>
+const REVISION = "2026-09-05";
+
+const AXES = [
+  { n:1, key:"capture", nom:"Capture", tag:"Acquisition du réel", v:"var(--ax1)", entries:[
+    { lvl:"B", t:"Le vide laissé par l'arrêt d'Azure Kinect a été comblé par Orbbec.",
+      d:"La Femto Bolt est présentée comme le successeur direct ; les séries Gemini et Femto sont décrites comme matures et exploitables en production. Intel RealSense est décrit comme en maintenance seule, Orbbec comme activement développé.",
+      s:["https://www.orbbec.com/","https://www.roboticscenter.ai/blog/best-depth-cameras-robotics"] },
+    { lvl:"B", t:"Le LiDAR des iPhone Pro est devenu une entrée de gamme crédible.",
+      d:"Disponible depuis l'iPhone 12 Pro. Écosystème : Polycam, Scaniverse, 3D Scanner App, Canvas. Intégration temps réel dans TouchDesigner via TDLidar — intéressant pour un usage scénique.",
+      s:["https://derivative.ca/community-post/tutorial/tdlidar-%E2%80%94-your-iphone-depth-camera-3d-scanner-and-sensor-rig-touchdesigner"] },
+    { lvl:"C", t:"Captation haut de gamme : rigs de 8 à 42 caméras.",
+      d:"Volucap est cité avec un système de 42 caméras produisant plus de 3 000 mégapixels par image. Chiffre non recoupé.", s:[] }
+  ]},
+  { n:2, key:"representation", nom:"Représentation", tag:"Comment on stocke le volume", v:"var(--ax2)", entries:[
+    { lvl:"B", t:"Le splatting gaussien 3D devient le format de fait.",
+      d:"Trajectoire décrite par les analystes : 2023 la vitesse, 2024 la précision géométrique et le mobile, 2025 la standardisation, 2026 la maturation des workflows. La formule « moment JPEG de l'informatique spatiale » est un propos d'analyste, pas un fait technique — elle situe l'état d'esprit du secteur.",
+      s:["https://web.volinga.ai/2025-turning-point-and-2026-trends-blog/"] },
+    { lvl:"B", t:"Le 4D Gaussian Splatting porte le volumétrique dynamique.",
+      d:"Extension temporelle du splatting : le sujet central pour de la vidéo volumétrique, par opposition au scan statique.", s:[] },
+    { lvl:"C", t:"Travaux à examiner sur la représentation streamable.",
+      d:"EvolvingGS (streamable haute fidélité) · V³ (lecture sur mobile via gaussiennes 2D dynamiques) · Detail Enhanced Gaussian Splatting for Large-Scale Volumetric Capture. Aucun de ces papiers n'a été lu ; titres et URL issus de résultats de recherche.",
+      s:["https://arxiv.org/pdf/2503.05162","https://arxiv.org/pdf/2409.13648","https://arxiv.org/pdf/2511.21697"] }
+  ]},
+  { n:3, key:"compression", nom:"Compression & transport", tag:"Rendre diffusable", v:"var(--ax3)", entries:[
+    { lvl:"B", t:"V3C / V-PCC (ISO/IEC 23090-5) serait passé au stade FDIS en octobre 2025.",
+      d:"Réunion MPEG 152, quatrième édition. FDIS = dernière étape avant publication.",
+      s:["https://www.mpeg.org/meetings/mpeg-152/"] },
+    { lvl:"B", t:"Un amendement définirait un profil V-PCC spécialisé pour les splats gaussiens.",
+      d:"L'information la plus structurante de cet axe : le splatting gaussien entrerait dans le cadre normatif MPEG au lieu de rester un format d'écosystème. À vérifier en priorité — piste P-002.", s:[] },
+    { lvl:"B", t:"E-G-PCC (Enhanced G-PCC) en développement.",
+      d:"Prédiction temporelle améliorée pour le dynamique (ISO/IEC 23090-38). La partie 40 — conformance et logiciel de référence — serait au stade CD.", s:[] },
+    { lvl:"B", t:"ISO/IEC 23090-10 (portage des données V3C) en 2ᵉ édition.",
+      d:"Passée au stade CD à la 151ᵉ réunion, FDIS attendu fin 2026.", s:[] },
+    { lvl:"B", t:"PackUV : réutiliser les codecs 2D plutôt que d'en inventer un.",
+      d:"Projette les données de splatting gaussien en images 2D compatibles avec les codecs vidéo standard ; découpage en segments pour le suivi d'objets, jusqu'à 30 minutes de séquence. L'idée directrice est le schéma récurrent de tout cet axe.",
+      s:["https://techxplore.com/news/2026-05-scientists-path-stream-3d-volumetric.html"] }
+  ]},
+  { n:4, key:"projection", nom:"Restitution & projection", tag:"Redonner le volume à voir", v:"var(--ax4)", entries:[
+    { lvl:"B", t:"Looking Glass a reçu le SID Display of the Year 2026 pour son Hololuminescent Display.",
+      d:"Avril 2026. Principe annoncé : des light field embeddings générés logiciellement sont fusionnés dans la pile optique de dalles 2D conventionnelles. Vision de groupe sans lunettes, sans casque, sans eye tracking. Trois formats : 16″, 27″, 86″.",
+      s:["https://blog.lookingglassfactory.com/looking-glass-receives-sid-2026-display-of-the-year-award-for-hololuminescenttm-display-technology/","https://lookingglassfactory.com/displays-overview"] },
+    { lvl:"B", t:"Samsung a annoncé Spatial Signage le 5 juillet 2026.",
+      d:"Dalle commerciale 85″, optique « 3D Plate » brevetée, traitement d'image par IA, restitution 3D sans lunettes. Cible : retail premium, musées, lieux de spectacle. L'affichage volumétrique sort du laboratoire vers la signalétique commerciale.", s:[] },
+    { lvl:"C", t:"Familles techniques de l'affichage volumétrique, à documenter proprement.",
+      d:"Swept-volume (surface en mouvement rapide) · static volume (matrice de voxels émissifs) · plasma laser femtoseconde (voxels aériens sans support, projetables par miroirs paraboliques) · piégeage photophorétique (particule de cellulose piégée par un faisceau 405 nm). Cette dernière famille est la seule « projection volumétrique » au sens littéral — et la moins mature.",
+      s:["https://arxiv.org/pdf/1506.06668","https://arxiv.org/pdf/2512.09401"] }
+  ]},
+  { n:5, key:"audio", nom:"Audio spatial", tag:"Axe parallèle, pas une étape", v:"var(--ax5)", entries:[
+    { lvl:"B", t:"MPEG-I Immersive Audio (ISO/IEC 23090-4) couvre le 6DoF.",
+      d:"Création, stockage, transmission et rendu de scènes sonores immersives. Le format décrit l'acoustique de la scène : sources sonores et géométrie acoustiquement pertinente. Pendant sonore direct du volumétrique visuel — même granularité de problème, même logique de scène 3D.",
+      s:["https://www.ericsson.com/en/blog/2026/3/heterogeneous-sound-sources"] },
+    { lvl:"B", t:"Sources sonores hétérogènes en HOA.",
+      d:"Le signal multicanal d'une source hétérogène peut représenter le champ sonore en Higher Order Ambisonics, ce qui permet de décrire des sources intérieures — le son à l'intérieur d'une forêt, là où une source ponctuelle n'a pas de sens.", s:[] },
+    { lvl:"B", t:"Captation 6DoF par ambisonie distribuée.",
+      d:"Plusieurs microphones ambisoniques répartis dans la scène, suivi des positions de sources, isolation par beamformers, interpolation du champ entre les sphères. Zylia commercialise une approche de ce type (ordre 3).",
+      s:["https://www.zylia.co/zylia-6dof.html"] }
+  ]},
+  { n:6, key:"production", nom:"Chaîne de production", tag:"Outils & pipeline", v:"var(--ax6)", entries:[
+    { lvl:"B", t:"Evercoast a racheté Depthkit.",
+      d:"Consolidation majeure : Depthkit intégré à l'écosystème cloud Evercoast, de la captation au rendu. Pour quiconque outille une chaîne volumétrique, c'est le fait industriel le plus structurant à connaître.",
+      s:["https://www.awn.com/news/evercoast-acquires-depthkit-volumetric-capture-company","https://www.broadcastnow.co.uk/post-and-vfx/evercoast-acquires-depthkit-to-spur-genai-3d-video-production/5194630.article"] },
+    { lvl:"C", t:"Captation hybride studio + LiDAR iPhone.",
+      d:"Evercoast 2026 mélangerait données de studio (8+ caméras synchronisées) et profondeur d'un scan LiDAR iPhone, la texture haute résolution du téléphone peignant la géométrie du rig. Si exact, abaissement net du ticket d'entrée. À vérifier.", s:[] },
+    { lvl:"C", t:"Rendu cloud.",
+      d:"Upload des données capteur brutes, traitement sur ferme de serveurs : plus de station de travail coûteuse requise. À vérifier.", s:[] },
+    { lvl:"B", t:"Pipeline de référence académique.",
+      d:"A Fast Volumetric Capture and Reconstruction Pipeline for Dynamic Point Clouds and Gaussian Splats — CVMP 2025.",
+      s:["https://dl.acm.org/doi/full/10.1145/3756863.3769713"] }
+  ]}
+];
+
+const CROISEMENTS = [
+  { lvl:"C", t:"CoherentRaster : splatting gaussien sur écran à champ lumineux.",
+    d:"SIGGRAPH 2026. Relie l'axe 2 et l'axe 4 : rendre du splatting gaussien sur un écran à champ lumineux. Exactement le point de jonction capture → projection. À lire en priorité — piste P-003.",
+    s:["https://www.realtimerendering.com/kesen/sig2026.html"] },
+  { lvl:"B", t:"La convergence normative.",
+    d:"Si le profil V-PCC pour splats gaussiens se confirme, la représentation dominante (axe 2), le transport (axe 3) et les moteurs de rendu (axe 4) convergent sur un même objet. C'est la condition d'une vraie chaîne de bout en bout.", s:[] }
+];
+
+const PISTES = [
+  { id:"P-001", t:"Promouvoir les entrées [B] en [A]", d:"Amorçage fait sans accès direct aux pages. Ouvrir les URL axe par axe, confirmer ou corriger. Prioriser l'axe 3 : c'est là qu'une affirmation fausse coûte le plus cher." },
+  { id:"P-002", t:"Le profil V-PCC pour splats gaussiens existe-t-il vraiment ?", d:"Décisif : conditionne la possibilité d'une chaîne standardisée de bout en bout. Trouver le compte rendu officiel de MPEG 152." },
+  { id:"P-003", t:"CoherentRaster : splatting sur écran à champ lumineux", d:"Le raccord littéral entre ce qu'on capture et ce sur quoi on le projette. Lire la méthode, évaluer le coût de rendu et la compatibilité Looking Glass." },
+  { id:"P-004", t:"Quel capteur pour un premier banc de captation ?", d:"Le saut 4 → 8 → 16 caméras n'est pas linéaire en résultat, et personne ne publie la courbe. Chiffrer un banc à 4 et à 8 capteurs." },
+  { id:"P-005", t:"La projection volumétrique littérale est-elle exploitable ?", d:"Hypothèse : plasma et photophorèse restent hors d'atteinte en usage scénique. Chercher une installation publique réelle ; si aucune n'existe, clore la piste." },
+  { id:"P-006", t:"L'audio suit-il l'image ?", d:"Existe-t-il une chaîne où captation visuelle et captation sonore 6DoF sont réellement synchronisées, ou est-ce toujours recollé en post ? Si c'est toujours recollé, c'est un sujet de R&D propre." }
+];
+
+const JOURNAL = [
+  { d:"2026-09-05", t:"Amorçage de la base", pts:[
+    "Six axes définis, 23 entrées réparties — 17 en [B], 6 en [C], aucune en [A].",
+    "Trois faits structurants : le splatting gaussien s'impose comme représentation ; l'affichage à champ lumineux quitte le laboratoire ; Evercoast a racheté Depthkit.",
+    "Limite : environnement sans accès direct aux pages web. Aucune entrée n'atteint [A] — c'est la piste P-001."
+  ]}
+];
+
+const GLOSSAIRE = [
+  ["Champ lumineux","light field","Description de la lumière traversant un volume en tenant compte de la direction des rayons, pas seulement de l'intensité en un point. D'où la 3D sans lunettes."],
+  ["Champ de radiance","radiance field","Scène représentée comme fonction donnant couleur et densité en tout point et toute direction. Englobe NeRF et le splatting gaussien."],
+  ["Splatting gaussien","Gaussian splatting, 3DGS","Scène représentée par un très grand nombre de primitives gaussiennes anisotropes projetées à l'écran. 4DGS en est l'extension temporelle."],
+  ["Vidéo volumétrique","volumetric video","Captation par plusieurs caméras, reconstruite en modèle 3D visible sous n'importe quel angle."],
+  ["Nuage de points","point cloud","Ensemble de points 3D avec position et attributs. Sortie brute typique des capteurs de profondeur."],
+  ["6DoF","six degrees of freedom","Trois translations et trois rotations. S'oppose au 3DoF, où l'on ne peut que tourner la tête depuis un point fixe."],
+  ["Ambisonie","Ambisonics","Champ sonore décomposé en harmoniques sphériques, indépendamment du dispositif de restitution. HOA = ordres supérieurs."],
+  ["Audio par objets","object-based audio","Sources positionnées dans l'espace plutôt que canaux fixes. Le rendu s'adapte au dispositif d'écoute."],
+  ["V-PCC","Video-based Point Cloud Compression","Compression par projection sur des plans 2D puis encodage avec des codecs vidéo existants. ISO/IEC 23090-5."],
+  ["G-PCC","Geometry-based Point Cloud Compression","Compression opérant directement sur la structure 3D. E-G-PCC en est l'édition enrichie."],
+  ["V3C","Visual Volumetric Video-based Coding","Cadre de codage général dont V-PCC est une instanciation."],
+  ["Voxel aérien","aerial voxel","Point lumineux créé directement dans l'air, typiquement par plasma induit par laser femtoseconde."],
+  ["Photogrammétrie","photogrammetry","Reconstruction 3D à partir de photographies multiples, par mise en correspondance de points de vue."],
+  ["Rig","rig","Ensemble physique des caméras et capteurs synchronisés d'un banc de captation."]
+];
+
+/* ---------- rendu ---------- */
+const el = (t,c,x) => { const e=document.createElement(t); if(c)e.className=c; if(x!==undefined)e.textContent=x; return e; };
+const host = u => {
+  try {
+    const { hostname, pathname } = new URL(u);
+    const h = hostname.replace(/^www\./,"");
+    const last = pathname.split("/").filter(Boolean).pop();
+    return last && last.length <= 26 ? h + "/" + last.replace(/\.(pdf|html)$/,"") : h;
+  } catch { return u; }
+};
+
+function entryNode(en){
+  const d = el("div","entry");
+  const p = el("p");
+  const lv = el("span","lvl lvl-"+en.lvl, "["+en.lvl+"]");
+  p.append(lv, Object.assign(el("b"),{textContent:en.t}), document.createTextNode(" "+en.d));
+  d.append(p);
+  if(en.s && en.s.length){
+    const ul = el("ul","srcs");
+    en.s.forEach(u => { const a=el("a",null,host(u)); a.href=u; a.target="_blank"; a.rel="noopener noreferrer"; const li=el("li"); li.append(a); ul.append(li); });
+    d.append(ul);
+  }
+  return d;
+}
+
+function renderAxes(){
+  const main = document.getElementById("axes");
+  AXES.forEach(ax => {
+    const s = el("section","axis");
+    const h = el("div","axis-h"); h.style.setProperty("--ax", ax.v);
+    h.append(el("span","axis-n","0"+ax.n), el("h2",null,ax.nom), el("span","axis-tag",ax.tag));
+    const b = el("div","entries");
+    if(!ax.entries.length) b.append(el("p","empty","Axe vide — rien de sourcé pour l'instant."));
+    else ax.entries.forEach(en => b.append(entryNode(en)));
+    s.append(h,b); main.append(s);
+  });
+  const s = el("section","axis");
+  const h = el("div","axis-h"); h.style.setProperty("--ax","var(--accent)");
+  h.append(el("span","axis-n","××"), el("h2",null,"Croisements"), el("span","axis-tag","Ce que la lecture par axe fait manquer"));
+  const b = el("div","entries");
+  CROISEMENTS.forEach(en => b.append(entryNode(en)));
+  s.append(h,b); main.append(s);
+}
+
+function renderStats(){
+  const all = AXES.flatMap(a=>a.entries).concat(CROISEMENTS);
+  const n = l => all.filter(e=>e.lvl===l).length;
+  const data = [
+    ["Entrées", all.length, ""], ["Vérifiées [A]", n("A"), "a"],
+    ["Sourcées [B]", n("B"), "b"], ["Pistes [C]", n("C"), "c"],
+    ["Pistes ouvertes", PISTES.length, ""], ["Axes", AXES.length, ""]
+  ];
+  const box = document.getElementById("stats");
+  data.forEach(([lab,val,cls]) => {
+    const d = el("div","stat"+(cls?" "+cls:""));
+    d.append(el("b",null,String(val)), el("span",null,lab));
+    box.append(d);
+  });
+  const a = document.getElementById("alert");
+  a.append(Object.assign(el("b"),{textContent:"Aucune entrée n'est au niveau [A]. "}),
+    document.createTextNode("L'amorçage du "+REVISION+" s'est fait dans un environnement où l'ouverture des pages web était bloquée : les sources sont identifiées mais non lues. Les ouvrir et promouvoir les entrées est la piste P-001."));
+}
+
+function renderPistes(){
+  const box = document.getElementById("pistes");
+  document.getElementById("pc").textContent = PISTES.length;
+  PISTES.forEach(p => {
+    const d = el("div","item");
+    const h = el("div","item-h");
+    h.append(el("span","item-id",p.id), el("span","item-t",p.t));
+    d.append(h, el("p",null,p.d)); box.append(d);
+  });
+}
+
+function renderJournal(){
+  const box = document.getElementById("journal");
+  JOURNAL.forEach(j => {
+    const d = el("div","jour");
+    d.append(el("span","jour-d",j.d), Object.assign(el("strong"),{textContent:j.t}));
+    const ul = el("ul"); j.pts.forEach(p => ul.append(el("li",null,p)));
+    d.append(ul); box.append(d);
+  });
+}
+
+function renderGlossaire(){
+  const box = document.getElementById("gloss");
+  GLOSSAIRE.forEach(([fr,en,def]) => {
+    const dl = el("div","gterm");
+    const dt = el("dt",null,fr+" ");
+    dt.append(Object.assign(el("em"),{textContent:"— "+en}));
+    dl.append(dt, el("dd",null,def)); box.append(dl);
+  });
+}
+
+function fillAxeSelect(){
+  const sel = document.getElementById("axe");
+  AXES.forEach(a => sel.append(new Option("0"+a.n+" · "+a.nom, a.key)));
+  sel.append(new Option("Non classé", "non-classe"));
+}
+
+renderAxes(); renderStats(); renderPistes(); renderJournal(); renderGlossaire(); fillAxeSelect();
+
+/* ---------- persistance ---------- */
+const form = document.getElementById("cap");
+const send = document.getElementById("send");
+const note = document.getElementById("capnote");
+const pendBox = document.getElementById("pend");
+const pendCount = document.getElementById("pendc");
+const axeNom = k => (AXES.find(a=>a.key===k) || {nom:"Non classé"}).nom;
+
+function renderPending(rows){
+  pendBox.replaceChildren();
+  pendCount.textContent = rows.length;
+  if(!rows.length){ pendBox.append(el("p","empty","Rien en attente. Les captures faites ici apparaissent dans cette colonne.")); return; }
+  rows.forEach(r => {
+    const d = el("div","item pending");
+    const h = el("div","item-h");
+    h.append(el("span","item-id", r.kind === "piste" ? "piste" : "note"), el("span","item-t", r.texte));
+    d.append(h, el("p",null, axeNom(r.axe) + " · " + (r.cree_le || "").slice(0,10)));
+    pendBox.append(d);
+  });
+}
+
+(async () => {
+  const db = (typeof claude !== "undefined" && claude.use) ? await claude.use("db") : null;
+  if(!db){
+    form.replaceChildren(el("p","empty","Saisie indisponible dans cette vue — le tableau reste consultable. Utilisez /piste depuis le terminal."));
+    pendBox.replaceChildren(el("p","empty","Saisie indisponible dans cette vue. Le contenu curé reste consultable."));
+    pendCount.textContent = "—";
+    return;
+  }
+
+  const rows = new Map();
+  const flush = () => renderPending(
+    [...rows.values()].sort((a,b) => String(b.cree_le).localeCompare(String(a.cree_le)))
+  );
+
+  const watch = (coll, kind) => db.collection(coll).orderBy("cree_le","desc").limit(40).onSnapshot(
+    snap => {
+      [...rows.keys()].filter(k => k.startsWith(kind+":")).forEach(k => rows.delete(k));
+      snap.docs.forEach(doc => {
+        const v = doc.data() || {};
+        rows.set(kind+":"+doc.id, { kind, texte: v.titre || v.texte || "(vide)", axe: v.axe, cree_le: v.cree_le });
+      });
+      flush();
+    },
+    err => {
+      note.textContent = err.code === "revoked"
+        ? "Saisie fermée pour cette session. Le contenu curé reste consultable."
+        : "Les captures ne se chargent pas (" + err.code + "). Réessayez en rechargeant la page.";
+      note.classList.add("err");
+    }
+  );
+
+  watch("pistes","piste");
+  watch("captures","note");
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const txt = document.getElementById("txt").value.trim();
+    if(!txt) return;
+    const axe = document.getElementById("axe").value;
+    const kind = form.querySelector('input[name="kind"]:checked').value;
+    send.disabled = true; send.textContent = "Enregistrement…";
+    try{
+      const now = new Date().toISOString();
+      if(kind === "piste"){
+        await db.collection("pistes").add({ titre: txt, description: "", axe, statut: "ouverte", cree_le: now, source: "tableau" });
+      } else {
+        await db.collection("captures").add({ texte: txt, axe, cree_le: now });
+      }
+      document.getElementById("txt").value = "";
+      note.classList.remove("err");
+      note.textContent = "Enregistré. Repris dans le dépôt au prochain /tableau.";
+    } catch(err){
+      note.classList.add("err");
+      note.textContent = err.code === "quota_exceeded"
+        ? "Base pleine : il faut curer les captures existantes avant d'en ajouter."
+        : "Échec de l'enregistrement (" + (err.code || "inconnu") + "). Le texte est conservé dans le champ.";
+    } finally {
+      send.disabled = false; send.textContent = "Enregistrer";
+    }
+  });
+})();
+</script>

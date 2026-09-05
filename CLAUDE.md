@@ -42,12 +42,27 @@ Toute modification de `8LISTE.json` doit être vérifiée avec `/verifier-liste`
 | `testeur` | Écrire ou exécuter des tests. |
 | `gardien-donnees` | Valider ou corriger `8LISTE.json`. |
 | `redacteur-doc` | Rédiger ou mettre à jour README, CLAUDE.md, `docs/`. |
+| `rnd-volumetrique` | Toute question de R&D en audiovisuel volumétrique : capture, représentation, compression, projection, audio spatial. |
 
 ## Commandes
 
 - `/verifier-liste` — contrôle d'intégrité de `8LISTE.json`.
 - `/revue` — revue du diff courant.
+- `/veille [axe]` — session de veille volumétrique.
+- `/piste "…"` — capture une piste de recherche.
+- `/tableau` — republie le tableau de bord.
+
+## R&D — audiovisuel volumétrique
+
+Chantier de recherche au long cours, distinct du registre `8LISTE.json`.
+
+- Base de connaissances : `docs/rnd-volumetrique/` — voir son `README.md`.
+- Tableau de bord : https://claude.ai/code/artifact/cf493b42-a4dd-4ecb-b5f0-1284f4159fee
+- Règle non négociable : **rien n'entre dans la base sans source datée**, avec son niveau
+  de confiance (`[A]` vérifié · `[B]` sourcé · `[C]` piste). Ne jamais affirmer de mémoire
+  sur ce domaine : recherche web, ou silence explicite.
 
 ## Documentation
 
 - `docs/claude-code-terminal.md` — installer et exploiter Claude Code en terminal.
+- `docs/rnd-volumetrique/` — base de veille sur la capture et la projection volumétriques.
