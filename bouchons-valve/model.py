@@ -91,6 +91,26 @@ def version_b(H):
             + cyl_z(tip + 9.0, bot + 0.5, 5.4, 7.0))  # cône caoutchouc
     return body - bore
 
+# ---------- V3 : filetage tout en haut, manchon quasi droit ----------
+TOPWALL = 1.5            # matière au-dessus du filetage
+GAP_RIM = 2.0            # jeu entre le bas du manchon et la jante
+
+def version_v3(H):
+    """H = hauteur de la tige au-dessus de la jante. Sommet en z=0, ouverture vers +Z."""
+    L = H - 0.5            # paroi 1,5 + jeu pointe 0,5 + tige couverte (H - 2)
+    D = min(L, 26.0)
+    RO = D / 2
+    RI = RO - (3.0 if D >= 26 else 2.0)
+    cy = RO
+    ring = (Manifold.cylinder(RING_T, RO, center=True) - Manifold.cylinder(RING_T + 1, RI, center=True))
+    ring = ring.rotate((90, 0, 0)).translate((0, 0, cy))
+    bar = Manifold.cube((2 * RO - 1, RING_T, BAR_W), center=True).translate((0, 0, cy))
+    arm = cyl_z(0, 7.5, TUBE_R) + cyl_z(7.5, 9.0, TUBE_R, 6.9) + cyl_z(9.0, L, 6.9, 7.4)
+    bore = (thread_negative(TOPWALL, 9.1)
+            + cyl_z(8.4, 9.06, R_MIN, 4.3)                  # amorce du filet
+            + cyl_z(9.05, L + 0.5, 5.5, 6.0))                          # Ø 11 -> Ø 12, dépouille
+    return ring + bar + arm - bore
+
 # ---------- export ----------
 def to_print(m):
     lo = m.bounding_box()[:3]
@@ -113,9 +133,8 @@ def write_stl(m, path, name):
 
 if __name__ == "__main__":
     parts = {
-        "bouchon_croix_A_court.stl": version_a(),
-        "bouchon_croix_B_long_H22.stl": version_b(22),
-        "bouchon_croix_B_long_H32.stl": version_b(32),
+        "bouchon_croix_H22.stl": version_v3(22),
+        "bouchon_croix_H32.stl": version_v3(32),
     }
     for fname, m in parts.items():
         m = to_print(m)
