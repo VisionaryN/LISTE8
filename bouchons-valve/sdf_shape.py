@@ -24,6 +24,8 @@ STYLES = {
     "affirme": dict(depth=8.0, edge=1.5, band=(3.0, 2.5), bar=(3.4, 3.0), blend=(1.8, 1.0), top_r=2.4),
     # anneau plus grand, aussi épais que le tube (≈ Ø 12) : un seul volume continu
     "epouse":  dict(depth=12.0, edge=1.5, band=(3.0, 2.5), bar=(3.4, 3.0), blend=(1.8, 1.0), top_r=2.4, dmax=29.0),
+    # même pièce, sommet coupé net à plat : posé directement sur le plateau, sans supports
+    "plat":    dict(depth=12.0, edge=1.5, band=(3.0, 2.5), bar=(3.4, 3.0), blend=(1.8, 1.0), top_r=0.0, dmax=29.0, flat=True),
 }
 STYLE = "subtil"
 
@@ -35,7 +37,8 @@ def params(H, style=None):
     band = st["band"][0 if big else 1]
     RO = D / 2
     return dict(L=L, RO=RO, band=band, Rmid=RO - band / 2, cy=RO, blend=st["blend"][0 if big else 1],
-                depth=st["depth"], edge=st["edge"], bar=st["bar"][0 if big else 1], top_r=st["top_r"])
+                depth=st["depth"], edge=st["edge"], bar=st["bar"][0 if big else 1], top_r=st["top_r"],
+                flat=st.get("flat", False))
 
 def smin(a, b, k):
     h = np.clip(0.5 + 0.5 * (b - a) / k, 0.0, 1.0)
@@ -70,7 +73,7 @@ def body(x, y, z, H):
     # le raccord lissé gonfle un peu là où l'anneau rejoint le haut/bas du tube :
     # intersection douce avec les plans z = 0 et z = L pour garder la hauteur exacte
     k = 0.6
-    d = smax(d, -(z + k / 4), k)
+    d = np.maximum(d, -z) if p["flat"] else smax(d, -(z + k / 4), k)
     d = smax(d, z - (L + k / 4), k)
     return d
 

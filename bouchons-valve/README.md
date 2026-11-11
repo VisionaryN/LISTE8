@@ -6,8 +6,10 @@
 |---|---|---|---|
 | `bouchon_croix_anneau_epais_H22.stl` | 22 à 31 mm | 21,5 × 12,6 × 21,5 | ≈ 2,9 g |
 | `bouchon_croix_anneau_epais_H32.stl` | 32 mm et plus | 29 × 13,2 × 31,5 | ≈ 5 g |
+| `bouchon_croix_anneau_epais_plat_H32.stl` | 32 mm et plus — **sommet plat, impression résine sans supports** | 29 × 13,2 × 31,4 | ≈ 5 g |
 
 - Anneau et barre de 12 mm d'épaisseur (comme le tube), arêtes et raccords arrondis.
+- Version `plat` : sommet coupé net (≈ 115 mm² au contact), à poser directement sur le plateau, arête à poncer ensuite. Pont ≈ 3,5 mm sur le dessus de la barre.
 - Même tube et même taraudage que la version minimaliste ci-dessous.
 - Générés par `soft_model.py` (forme lissée de `sdf_shape.py`, style `epouse`) : `python soft_model.py <dossier> epouse`.
 
