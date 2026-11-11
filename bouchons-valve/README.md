@@ -1,5 +1,20 @@
 # Bouchons de valve « croix » (valve Schrader moto, filetage 8V1 0.305″-32 UNEF)
 
+## Version anneau épais (formes arrondies) — dernière version
+
+| Fichier | Hauteur de tige H | Dimensions (mm) | Masse résine |
+|---|---|---|---|
+| `bouchon_croix_anneau_epais_H22.stl` | 22 à 31 mm | 21,5 × 12,6 × 21,5 | ≈ 2,9 g |
+| `bouchon_croix_anneau_epais_H32.stl` | 32 mm et plus | 29 × 13,2 × 31,5 | ≈ 5 g |
+
+- Anneau et barre de 12 mm d'épaisseur (comme le tube), arêtes et raccords arrondis.
+- Même tube et même taraudage que la version minimaliste ci-dessous.
+- Générés par `soft_model.py` (forme lissée de `sdf_shape.py`, style `epouse`) : `python soft_model.py <dossier> epouse`.
+
+![aperçu anneau épais](apercu_anneau_epais.png)
+
+## Version minimaliste (précédente)
+
 Le filetage est logé tout en haut de la branche verticale (1,5 mm sous le sommet).
 Version minimaliste : un seul tube central droit (Ø ext 11,6 en haut → 12,3 / 12,6 en bas, Ø int 9,6 → 10), sans marche, qui descend jusqu'à 2 mm de la jante. Anneau 2,2–2,6 mm, bras 3 mm.
 
